@@ -7,14 +7,16 @@
 (defn- get-category
   "Takes an article and return the category name"
   [article]
+  ;("Cars") -> "Cars"
   (string/join
+    ;({:tag :h2, :attrs {:id "cars"}, :content ("Cars")}) -> ("Cars")
     (map html/text (html/select article [:header :h2]))))
 
 (defn- get-car
   "Takes li item and return a map of the car's name and type"
   [li]
-  (let [[{pnames :content} rel] (:content li)]
-    {:name (apply str pnames)
+  (let [[{names :content} rel] (:content li)]
+    {:name (apply str names)
      :type (string/trim rel)}))
 
 (defn- get-rows 
